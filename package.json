@@ -4,7 +4,8 @@
   "description": "learning basics of graphql learn basics of graphql",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon ./src/server.js --exec babel-node -e js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,10 @@
     "babel-preset-power-assert": "^2.0.0",
     "babel-preset-stage-1": "^6.24.1",
     "babel-runtime": "6.26.0",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "graphql-tools": "^4.0.3"
   },
   "devDependencies": {
     "nodemon": "^1.18.3",
