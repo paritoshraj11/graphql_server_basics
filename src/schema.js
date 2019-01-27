@@ -1,23 +1,58 @@
 import { buildSchema } from "graphql";
 import { makeExecutableSchema } from "graphql-tools";
+import resolvers from "./resolver";
 
-const schema = buildSchema(`
-type HackerNewsItem {
-    id :ID
-    title :String
+const typeDefs = `
+
+#defining types
+enum Gender {
+    MALE
+    FEMALE
+    OTHERS
 }
 
 type Email {
     email : String
 }
 
+type HackerNewsItem {
+    id :ID
+    title :String
+    text :String
+
+}
+
 type User {
     id : ID
-    firstName:String
+    firstName:String!
     lastName :String
     email : String
     gender : Gender
     items :[HackerNewsItem]
+}
+
+#defining  input for mutations 
+
+input hackerNewsItemInput  {
+    title : String
+    text: String
+}
+
+
+input UserInput {
+    firstName:String!
+    lastName :String
+    email : String 
+    gender : Gender
+    items: [ID!] 
+}
+input UserUpdateInput {
+    id : ID
+    firstName:String!
+    lastName :String
+    email : String 
+    gender : Gender
+    items: [ID] 
 }
 
 #query object
@@ -25,39 +60,20 @@ type User {
 type Query {
     item : HackerNewsItem
     findUserById(id : ID) : User
-    users : [User]
-}
-
-enum Gender {
-    MALE
-    FEMALE
-    OTHERS
-}
-
-
-#define hackernews input item for user input 
-
-input hackerNewsItemInput  {
-    id : ID!
-    title : String
-}
-
-
-input UserInput {
-    id : String!
-    firstName:String!
-    lastName :String!
-    emails : String 
-    gender : Gender
-    items: [hackerNewsItemInput] 
+    getUsers : [User]
+    getItem(id : ID ) : HackerNewsItem
 }
 
 #mutation object
 
 type Mutation {
     createUser(input : UserInput) : User
+    updateUser(input:UserUpdateInput): User
+    deleteUser(id:ID!): User
+    createItem(input : hackerNewsItemInput) : HackerNewsItem
 }
+`;
 
-`);
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export default schema;
