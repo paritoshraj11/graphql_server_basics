@@ -9,7 +9,6 @@ export default (resolvers = {
   Mutation: {
     addTodo: async (_, args, context, infor) => {
       let { input } = args;
-      console.log(">>>>> input", JSON.stringify(input));
       input = {
         ...input,
         completed: false

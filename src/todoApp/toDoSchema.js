@@ -1,8 +1,6 @@
 import { makeExecutableSchema } from "graphql-tools";
 import resolvers from "./toDoResolvers";
-const typeDefs = `
-
-
+export const typeDefs = `
 type Todo {
     id : ID
     title:String
