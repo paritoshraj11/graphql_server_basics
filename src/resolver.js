@@ -3,9 +3,9 @@ import UserSchema from "./models/user";
 const Users = [];
 const resolver = {
   Query: {
-    findUserById: (_, args, context, info) => {
+    findUserById: async (_, args, context, info) => {
       let { id } = args;
-      return Users.find(user => user.id == id);
+      return await UserSchema.findById(id).populate("items");
     },
     getItem: async (_, { id }) => {
       let item = await ItemModel.findOne({ _id: id });
